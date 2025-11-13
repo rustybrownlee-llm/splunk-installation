@@ -35,7 +35,8 @@ SPLUNK_HOME="/opt/splunk"
 SPLUNK_USER="splunk"
 SPLUNK_GROUP="splunk"
 SPLUNK_ADMIN_USER="admin"
-PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$SCRIPT_DIR"
 
 # Detect architecture and set appropriate filename
 ARCH=$(uname -m)
