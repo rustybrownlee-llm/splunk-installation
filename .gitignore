@@ -1,0 +1,68 @@
+# Splunk Installation - Git Ignore
+
+# Large binary files (download separately)
+*.tgz
+*.tar.gz
+*.msi
+*.iso
+
+# Exceptions - keep packaged releases
+!linux-splunk-package.tar.gz
+# windows-forwarder-package.zip excluded due to size (>100MB)
+
+# Splunk installers (too large for git)
+downloads/splunk-*.tgz
+linux-splunk-package/downloads/*.tgz
+linux-splunk-package/downloads/*.tar.gz
+linux-splunk-package/splunk-*.tgz
+
+# AWS credentials and keys
+aws/*.csv
+aws/*.pem
+*.pem
+rootkey.csv
+
+# SSH keys
+.ssh/
+*.ppk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Virtual Machines
+vm/*.utm
+*.vmdk
+*.vdi
+*.vhd
+
+# Temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Test results
+testing/*.log
+testing/test-output/
+
+# Certificates (generated locally)
+*.crt
+*.key
+*.csr
+mycerts/
+ca/
