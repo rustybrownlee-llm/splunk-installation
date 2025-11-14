@@ -138,17 +138,17 @@ cat > $WINDOWS_APP_DIR/local/inputs.conf << 'EOF'
 # Windows Event Logs
 [WinEventLog://Application]
 disabled = false
-index = main
+index = wineventlog
 sourcetype = WinEventLog:Application
 
 [WinEventLog://Security]
 disabled = false
-index = main
+index = wineventlog
 sourcetype = WinEventLog:Security
 
 [WinEventLog://System]
 disabled = false
-index = main
+index = wineventlog
 sourcetype = WinEventLog:System
 
 # Performance monitoring
@@ -158,7 +158,7 @@ counters = % Processor Time; % User Time; % Privileged Time
 instances = _Total
 interval = 30
 disabled = false
-index = main
+index = perfmon
 
 [perfmon://Memory]
 object = Memory
@@ -166,7 +166,7 @@ counters = Available Bytes; Pages/sec; % Committed Bytes In Use
 instances = *
 interval = 30
 disabled = false
-index = main
+index = perfmon
 
 [perfmon://LogicalDisk]
 object = LogicalDisk
@@ -174,7 +174,7 @@ counters = % Free Space; Free Megabytes; Current Disk Queue Length; % Disk Time;
 instances = *
 interval = 30
 disabled = false
-index = main
+index = perfmon
 
 [perfmon://Network]
 object = Network Interface
@@ -182,7 +182,7 @@ counters = Bytes Total/sec; Packets/sec; Packets Received/sec; Packets Sent/sec
 instances = *
 interval = 30
 disabled = false
-index = main
+index = perfmon
 EOF
 
 # Create app.conf
