@@ -229,6 +229,7 @@ stateOnClient = enabled
 [serverClass:WindowsForwarders]
 whitelist.0 = *
 machineTypesFilter = windows-x64,windows-intel
+restartSplunkd = true
 
 [serverClass:WindowsForwarders:app:ocs_add-on_windows]
 restartSplunkd = true
