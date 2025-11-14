@@ -1,17 +1,14 @@
 # Splunk Installation - Git Ignore
 
-# Large binary files (download separately)
-*.tgz
-*.tar.gz
+# Large installer files (too large for git, download separately)
+installers/
 *.msi
 *.iso
 
-# Exceptions - keep packaged releases
+# Exceptions - keep packaged releases and add-ons
 !linux-splunk-package.tar.gz
-# windows-forwarder-package.zip excluded due to size (>100MB)
 
-# Splunk installers (too large for git)
-downloads/splunk-*.tgz
+# Splunk installers in linux-splunk-package downloads (too large for git)
 linux-splunk-package/downloads/*.tgz
 linux-splunk-package/downloads/*.tar.gz
 linux-splunk-package/splunk-*.tgz
