@@ -106,11 +106,11 @@ fi
 # Create a base forwarder app for all Windows forwarders
 log_info "Creating base Windows forwarder configuration app..."
 WINDOWS_APP_DIR="$DEPLOYMENT_APPS_DIR/windows_forwarder_base"
-mkdir -p $WINDOWS_APP_DIR/local
+mkdir -p $WINDOWS_APP_DIR/default
 mkdir -p $WINDOWS_APP_DIR/metadata
 
 # Create outputs.conf for forwarders
-cat > $WINDOWS_APP_DIR/local/outputs.conf << 'EOF'
+cat > $WINDOWS_APP_DIR/default/outputs.conf << 'EOF'
 [tcpout]
 defaultGroup = primary_indexers
 
@@ -126,15 +126,15 @@ SERVER_IP=$(hostname -I | awk '{print $1}')
 
 # Cross-platform sed (works on both Linux and macOS)
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    sed -i '' "s/SPLUNK_SERVER_IP/$SERVER_IP/g" $WINDOWS_APP_DIR/local/outputs.conf
+    sed -i '' "s/SPLUNK_SERVER_IP/$SERVER_IP/g" $WINDOWS_APP_DIR/default/outputs.conf
 else
-    sed -i "s/SPLUNK_SERVER_IP/$SERVER_IP/g" $WINDOWS_APP_DIR/local/outputs.conf
+    sed -i "s/SPLUNK_SERVER_IP/$SERVER_IP/g" $WINDOWS_APP_DIR/default/outputs.conf
 fi
 
 log_info "Configured forwarders to send data to: $SERVER_IP:9997"
 
 # Create inputs.conf for Windows forwarders
-cat > $WINDOWS_APP_DIR/local/inputs.conf << 'EOF'
+cat > $WINDOWS_APP_DIR/default/inputs.conf << 'EOF'
 # Windows Event Logs
 [WinEventLog://Application]
 disabled = false
@@ -186,7 +186,7 @@ index = perfmon
 EOF
 
 # Create app.conf
-cat > $WINDOWS_APP_DIR/local/app.conf << 'EOF'
+cat > $WINDOWS_APP_DIR/default/app.conf << 'EOF'
 [install]
 state = enabled
 
