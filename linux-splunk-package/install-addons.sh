@@ -94,6 +94,11 @@ for tarball in "$DOWNLOADS_DIR"/*.tgz; do
         continue
     fi
 
+    # Skip Splunk installer itself (e.g., splunk-10.0.1-c486717c322b-linux-amd64.tgz)
+    if [[ "$tarball" =~ splunk-[0-9]+\.[0-9]+\.[0-9]+-.*-linux- ]]; then
+        continue
+    fi
+
     filename=$(basename "$tarball")
     log_info "  Extracting: $filename"
     tar -xzf "$tarball" 2>&1 | grep -v "Ignoring unknown extended header keyword" >&2
@@ -106,6 +111,11 @@ for tarball in "$DOWNLOADS_DIR"/*.tar.gz; do
 
     # Skip forwarder packages
     if [[ "$tarball" == *"forwarder"* ]]; then
+        continue
+    fi
+
+    # Skip Splunk installer itself (just in case it's .tar.gz)
+    if [[ "$tarball" =~ splunk-[0-9]+\.[0-9]+\.[0-9]+-.*-linux- ]]; then
         continue
     fi
 
