@@ -101,7 +101,7 @@ for tarball in "$DOWNLOADS_DIR"/*.tgz; do
 
     filename=$(basename "$tarball")
     log_info "  Extracting: $filename"
-    tar -xzf "$tarball" 2>&1 | grep -v "Ignoring unknown extended header keyword" >&2
+    tar -xzf "$tarball" 2>/dev/null
 done
 
 # Process .tar.gz files
@@ -121,7 +121,7 @@ for tarball in "$DOWNLOADS_DIR"/*.tar.gz; do
 
     filename=$(basename "$tarball")
     log_info "  Extracting: $filename"
-    tar -xzf "$tarball" 2>&1 | grep -v "Ignoring unknown extended header keyword" >&2
+    tar -xzf "$tarball" 2>/dev/null
 done
 
 log_info ""
