@@ -139,34 +139,23 @@ while true; do
 done
 echo ""
 
-# Update system and install dependencies based on OS
-log_info "Updating system packages..."
+# Check for required dependencies (no internet required)
+log_info "Checking for required dependencies..."
 
-case "$OS_ID" in
-    ubuntu|debian)
-        apt update && apt upgrade -y
-        apt install -y wget curl net-tools tar gzip
-        ;;
-    rhel|centos|rocky|almalinux)
-        yum update -y
-        yum install -y wget curl net-tools tar gzip
-        ;;
-    *)
-        log_warn "Unknown OS: $OS_ID. Attempting generic package installation..."
-        if command -v apt &> /dev/null; then
-            apt update && apt upgrade -y
-            apt install -y wget curl net-tools tar gzip
-        elif command -v yum &> /dev/null; then
-            yum update -y
-            yum install -y wget curl net-tools tar gzip
-        else
-            log_error "Cannot determine package manager"
-            exit 1
-        fi
-        ;;
-esac
+MISSING_DEPS=""
+for cmd in tar gzip; do
+    if ! command -v $cmd &> /dev/null; then
+        MISSING_DEPS="$MISSING_DEPS $cmd"
+    fi
+done
 
-log_info "Dependencies installed"
+if [ -n "$MISSING_DEPS" ]; then
+    log_error "Missing required dependencies:$MISSING_DEPS"
+    log_error "Please install these packages before running this script"
+    exit 1
+fi
+
+log_info "All required dependencies found"
 
 # Create Splunk user and group
 if getent group "$SPLUNK_GROUP" &>/dev/null; then
