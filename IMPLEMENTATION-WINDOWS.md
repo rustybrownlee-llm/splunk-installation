@@ -36,8 +36,8 @@ Get-Item splunkforwarder-9.3.2-d8bb32809498-x64-release.msi
 **Important**: Replace these values with your actual Splunk server details
 
 ```powershell
-$SplunkServerIP = "YOUR_SPLUNK_SERVER_IP"          # Example: "172.31.20.15"
-$SplunkPassword = "YOUR_SPLUNK_ADMIN_PASSWORD"     # Example: "SplunkAdmin123!"
+$SplunkServerIP = "YOUR_SPLUNK_SERVER_IP"          # Example: "10.0.1.100"
+$SplunkPassword = "YOUR_SPLUNK_ADMIN_PASSWORD"     # Secure password of your choice
 $DeploymentPort = "8089"
 $ReceivingPort = "9997"
 ```
@@ -539,7 +539,7 @@ if ($testDeployment.TcpTestSucceeded -and $testReceiving.TcpTestSucceeded) {
 
 **Usage**:
 ```powershell
-.\Deploy-SplunkForwarder.ps1 -SplunkServerIP "172.31.20.15" -SplunkPassword "SplunkAdmin123!"
+.\Deploy-SplunkForwarder.ps1 -SplunkServerIP "YOUR_SPLUNK_SERVER_IP" -SplunkPassword "YOUR_PASSWORD"
 ```
 
 ---
