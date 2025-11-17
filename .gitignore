@@ -8,10 +8,9 @@ installers/
 # Exceptions - keep packaged releases and add-ons
 !linux-splunk-package.tar.gz
 
-# Splunk installers in linux-splunk-package downloads (too large for git)
-linux-splunk-package/downloads/*.tgz
-linux-splunk-package/downloads/*.tar.gz
-linux-splunk-package/splunk-*.tgz
+# Splunkbase add-ons (too large for git, download separately)
+splunkbase/*.tgz
+splunkbase/*.tar.gz
 
 # AWS credentials and keys
 aws/*.csv

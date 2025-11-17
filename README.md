@@ -1,201 +1,122 @@
 # Splunk Enterprise Deployment Package
 
-Complete offline installation package for Splunk Enterprise with Universal Forwarders, designed for air-gapped environments without internet access.
+Multi-deployment package for Splunk Enterprise with Universal Forwarders, designed for various environments including air-gapped deployments.
 
 ## Project Overview
 
-This project provides:
-- **Splunk Enterprise 10.0.1** installation for Linux (Ubuntu/Debian and RHEL/CentOS)
-- **Splunk Universal Forwarder 9.3.2** for Windows systems
+This project provides a complete Splunk deployment framework supporting:
+- Multiple deployment scenarios (Linux non-ES, Windows ES, and more)
+- Splunk Enterprise installation for various platforms
+- Universal Forwarder deployment strategies
 - Complete deployment server configuration for managing forwarders
-- Manual implementation guides for environments with script execution restrictions
-- 18+ pre-configured add-ons for network security, Windows monitoring, and CIM compliance
-- Automated installation scripts (optional)
-
-## Architecture
-
-```
-┌─────────────────────────────────────────────┐
-│         Linux Server (Ubuntu/RHEL)          │
-│                                             │
-│         Splunk Enterprise 10.0.1            │
-│                                             │
-│         - Indexer & Search Head             │
-│         - Deployment Server                 │
-│         - Data Receiver (Port 9997)         │
-│         - 18+ Add-ons Installed             │
-│         - CIM Data Models Accelerated       │
-│                                             │
-└──────────────────┬──────────────────────────┘
-                   │
-      ┌────────────┼────────────┐
-      │            │            │
-      ▼            ▼            ▼
-┌──────────┐ ┌──────────┐ ┌──────────┐
-│ Windows  │ │ Windows  │ │ Windows  │
-│ Client 1 │ │ Client 2 │ │ Client N │
-│          │ │          │ │          │
-│ Forwarder│ │ Forwarder│ │ Forwarder│
-│ 9.3.2    │ │ 9.3.2    │ │ 9.3.2    │
-└──────────┘ └──────────┘ └──────────┘
-```
+- Shared repository of apps, add-ons, and installers
+- Both automated and manual installation options
 
 ## Directory Structure
 
 ```
 splunk-installation/
-├── README.md                                  # This file
-├── IMPLEMENTATION-LINUX.md                    # Manual Linux installation guide
-├── IMPLEMENTATION-WINDOWS.md                  # Manual Windows installation guide
+├── README.md                                  # This file - project overview
 │
-├── installers/                                # Large installer files (gitignored)
+├── installers/                                # Shared installer files (gitignored)
 │   ├── splunk-10.0.1-*-linux-amd64.tgz       # Splunk Enterprise 10.0.1 (1.6GB)
 │   ├── splunk-9.4.6-*-linux-amd64.tgz        # Splunk Enterprise 9.4.6 (1.1GB)
-│   ├── splunkforwarder-10.0.2-*-windows-x64.msi  # Windows forwarder for 10.x (159MB)
-│   ├── splunkforwarder-9.4.6-*-windows-x64.msi   # Windows forwarder for 9.4.6 (171MB)
-│   ├── splunkforwarder-9.3.2-*-x64-release.msi   # Windows forwarder legacy (130MB)
-│   └── splunkforwarder-9.3.2-*-Linux-x86_64.tgz  # Linux forwarder (47MB)
+│   ├── splunkforwarder-10.0.2-*-windows-x64.msi  # Windows forwarder for 10.x
+│   ├── splunkforwarder-9.4.6-*-windows-x64.msi   # Windows forwarder for 9.4.6
+│   ├── splunkforwarder-9.3.2-*-x64-release.msi   # Windows forwarder legacy
+│   └── splunkforwarder-9.3.2-*-Linux-x86_64.tgz  # Linux forwarder
 │
-├── linux-splunk-package/                      # Linux server installation
-│   ├── install-splunk.sh                      # Main Splunk installation script
-│   ├── install-addons.sh                      # Add-on installation script
-│   ├── configure-deployment-server.sh         # Deployment server setup
-│   ├── setup-receiving.sh                     # Data receiving configuration
-│   ├── downloads/                             # 18+ add-on files (in git)
-│   │   ├── splunk-common-information-model-cim_620.tgz
-│   │   ├── splunk-add-on-for-microsoft-windows_901.tgz
-│   │   ├── splunk-add-on-for-cisco-asa_600.tgz
-│   │   ├── palo-alto-networks-firewall_214.tgz
-│   │   ├── infosec-app-for-splunk_171.tgz
-│   │   └── [13 more add-ons...]
-│   ├── ocs_add-on_indexes/                    # Custom index definitions
-│   ├── cim-local-config/                      # CIM acceleration config
-│   └── deployment-apps/                       # Apps for deployment server
-│       ├── ocs_add-on_deployment/
-│       ├── ocs_add-on_outputs/
-│       └── ocs_add-on_windows/
+├── splunkbase/                                # Shared apps/add-ons repository
+│   ├── README.md                              # List of 18+ add-ons
+│   └── [18+ add-on .tgz files]               # Downloaded from Splunkbase (gitignored)
 │
-└── windows-forwarder-package/                 # Windows client installation
-    ├── Install-SplunkForwarder.ps1            # Automated PowerShell installer
-    ├── config/                                # Configuration templates
-    └── installers/                            # Windows MSI (see installers/)
+├── universal-forwarders/                      # Forwarder deployment strategies
+│   ├── README.md                              # Deployment patterns & best practices
+│   └── windows-forwarder-package/            # Windows forwarder automation
+│
+├── linux-non-ES/                              # Linux Enterprise + Windows Forwarders
+│   ├── README.md                              # Linux deployment documentation
+│   ├── IMPLEMENTATION-LINUX.md                # Manual Linux installation guide
+│   ├── IMPLEMENTATION-WINDOWS.md              # Manual Windows forwarder guide
+│   ├── VERSION-SELECTION.md                   # Version compatibility matrix
+│   └── linux-splunk-package/                  # Installation scripts
+│       ├── install-splunk.sh
+│       ├── install-addons.sh
+│       ├── configure-deployment-server.sh
+│       ├── setup-receiving.sh
+│       ├── ocs_add-on_indexes/                # Custom index definitions
+│       ├── cim-local-config/                  # CIM acceleration config
+│       └── deployment-apps/                   # Apps for deployment server
+│
+└── windows-ES/                                # Windows Enterprise Security (future)
+    └── README.md                              # Staged for future implementation
 ```
 
-## Quick Start
+## Sub-Projects
 
-### Option 1: Manual Installation (Recommended for Restricted Environments)
+### linux-non-ES/
+**Linux Splunk Enterprise Server + Windows Universal Forwarders**
 
-If customer facilities have execution policies preventing script execution:
+Complete deployment package for a Linux-based Splunk Enterprise server receiving data from Windows endpoints.
 
-**Linux Server:**
-1. Follow step-by-step instructions in `IMPLEMENTATION-LINUX.md`
-2. All commands are provided for manual CLI execution
-3. No script execution required
+- **Platform:** Ubuntu/Debian or RHEL/CentOS
+- **Version:** Splunk Enterprise 10.0.1 or 9.4.6
+- **Features:**
+  - Indexer & Search Head
+  - Deployment Server for forwarder management
+  - 18+ pre-configured add-ons (CIM, InfoSec, network security)
+  - Windows Event Log collection from forwarders
 
-**Windows Forwarders:**
-1. Follow step-by-step instructions in `IMPLEMENTATION-WINDOWS.md`
-2. All commands are provided for manual PowerShell execution
-3. Works in environments with restricted execution policies
+📚 **Documentation:** See `linux-non-ES/README.md` for complete deployment guide
 
-### Option 2: Automated Installation (If Scripts Can Run)
+### windows-ES/
+**Windows Enterprise Security Deployment (Staged)**
 
-**Linux Server:**
-```bash
-cd linux-splunk-package
+Reserved for future Windows-based Splunk Enterprise deployment with Enterprise Security.
 
-# Step 1: Install Splunk Enterprise
-sudo ./install-splunk.sh
-# Prompts for admin password, installs Splunk 10.0.1
+📚 **Documentation:** See `windows-ES/README.md` for status
 
-# Step 2: Install all add-ons
-sudo ./install-addons.sh
-# Installs 18+ add-ons and configures CIM
+## Shared Resources
 
-# Step 3: Configure deployment server
-sudo ./configure-deployment-server.sh
-# Sets up deployment server for forwarder management
+### installers/
+Splunk Enterprise and Universal Forwarder installers for all platforms. These files are gitignored due to size and must be downloaded separately.
 
-# Step 4: Enable data receiving
-sudo ./setup-receiving.sh
-# Opens port 9997 for forwarder data
-```
+**Download sources:**
+- Splunk Enterprise: https://www.splunk.com/en_us/download/splunk-enterprise.html
+- Universal Forwarders: https://www.splunk.com/en_us/download/universal-forwarder.html
 
-**Windows Forwarders:**
-```powershell
-# Run PowerShell as Administrator
-cd windows-forwarder-package
+### splunkbase/
+Centralized repository for Splunk apps and add-ons downloaded from Splunkbase. Shared across all sub-projects.
 
-# Option 1: Use the automated installer
-.\Install-SplunkForwarder.ps1 -SplunkServerIP "YOUR_SERVER_IP"
+**Contents:** 18+ add-ons including:
+- Splunk Common Information Model (CIM)
+- InfoSec App for Splunk
+- Network Security Add-ons (Cisco, Palo Alto)
+- Technology Add-ons (Windows, Active Directory, Sysmon, Unix/Linux)
+- Visualization apps
 
-# Option 2: Follow manual steps in IMPLEMENTATION-WINDOWS.md
-```
+📚 **Documentation:** See `splunkbase/README.md` for complete list
+
+### universal-forwarders/
+Universal Forwarder deployment strategies and configurations applicable to all sub-projects.
+
+**Deployment Strategy:** Centralized management via Deployment Server
+- Automatic configuration distribution
+- OS-specific targeting (Windows vs Linux)
+- Version compatibility guidance
+
+📚 **Documentation:** See `universal-forwarders/README.md` for deployment patterns
 
 ## Version Information
 
 **Splunk Components:**
-- Splunk Enterprise: **10.0.1** (latest version, 1.6GB)
-- Splunk Enterprise: **9.4.6** (stable 9.x version, 1.1GB)
-- Universal Forwarder: **10.0.2** (159MB for Windows) - for Enterprise 10.x
-- Universal Forwarder: **9.4.6** (171MB for Windows) - for Enterprise 9.4.6
-- Universal Forwarder: **9.3.2** (130MB for Windows, 47MB for Linux) - legacy/universal
+- Splunk Enterprise: **10.0.1** (latest, 1.6GB) or **9.4.6** (stable 9.x, 1.1GB)
+- Universal Forwarder: **10.0.2**, **9.4.6**, or **9.3.2** (universal compatibility)
 
 **Supported Operating Systems:**
 - Linux: Ubuntu 22.04+, Debian 11+, RHEL 8+, CentOS 8+
 - Windows: Windows 10/11, Windows Server 2016+
 - Architectures: x86_64 (AMD64), ARM64
-
-## Installed Add-ons and Apps
-
-The package includes 18+ pre-configured add-ons:
-
-**Core Framework:**
-- Splunk Common Information Model (CIM) 6.2.0
-- Splunk Security Essentials 3.8.2
-
-**Network Security:**
-- Splunk Add-on for Cisco ASA 6.0.0
-- Add-on for Cisco Network Data 2.7.9
-- Palo Alto Networks Firewall 2.1.4
-- Splunk Add-on for Palo Alto Networks 2.0.2
-
-**Windows Monitoring:**
-- Splunk Add-on for Microsoft Windows 9.0.1
-- Splunk Supporting Add-on for Active Directory 3.1.1
-- Splunk Add-on for Sysmon 5.0.0
-
-**Unix/Linux Monitoring:**
-- Splunk Add-on for Unix and Linux 10.2.0
-
-**Security & Analysis:**
-- InfoSec App for Splunk 1.7.1
-- Alert Manager 3.0.11
-- Alert Manager Add-on 2.3.1
-
-**Visualization:**
-- Splunk AI Toolkit 5.6.3
-- Force Directed App for Splunk 3.1.1
-- Punchcard Custom Visualization 1.5.0
-- Splunk Sankey Diagram Custom Visualization 1.6.0
-- Splunk App for Lookup File Editing 4.0.6
-
-## Custom OCS Components
-
-**OCS Index Definitions:**
-- `wineventlog` - Windows event logs (100GB limit)
-- `perfmon` - Performance monitoring data (50GB limit)
-- `os` - Operating system logs
-- `network` - Network device logs
-- `web` - Web server logs
-- `security` - Security events
-- `application` - Application logs
-- `database` - Database logs
-- `email` - Email system logs
-
-**Deployment Apps:**
-- `ocs_add-on_deployment` - Deployment client configuration (all forwarders)
-- `ocs_add-on_outputs` - Output configuration to indexer (all forwarders)
-- `ocs_add-on_windows` - Windows-specific inputs (Windows forwarders only)
 
 ## Network Requirements
 
@@ -209,42 +130,47 @@ The package includes 18+ pre-configured add-ons:
 - Forwarders → Server: 9997 (data forwarding)
 - Admin Workstation → Server: 8000 (web access)
 
-## Installation Notes
+## Quick Start
 
-### Linux Server Requirements
-- **RAM:** 8GB minimum, 16GB recommended
-- **Storage:** 100GB minimum (depends on data volume)
-- **CPU:** 4 cores minimum
-- **OS:** Ubuntu 22.04+, RHEL 8+, or CentOS 8+
+### 1. Prepare the Package
 
-### Windows Forwarder Requirements
-- **RAM:** 512MB minimum
-- **Storage:** 2GB for installation
-- **OS:** Windows 10/11, Windows Server 2016+
+Download required installers and add-ons:
 
-### Known Issues
+```bash
+# Download Splunk Enterprise installers to installers/
+# Download Splunkbase add-ons to splunkbase/
+# See respective README files for download links
+```
 
-1. **RHEL 9 OpenSSL Compatibility:** Splunk 10.0.1 may show OpenSSL warnings on RHEL 9 when enabling boot-start. The service runs fine but may not auto-start on reboot. Use manual start commands after reboots.
+### 2. Choose Your Deployment
 
-2. **Data Model Acceleration:** Initial CIM data model acceleration can take hours depending on data volume. This is normal and happens in the background.
+Navigate to the appropriate sub-project and follow its documentation:
 
-## Security Considerations
+**For Linux Enterprise + Windows Forwarders:**
+```bash
+cd linux-non-ES
+# Follow README.md or IMPLEMENTATION-LINUX.md
+```
 
-⚠️ **Important Security Notes:**
+**For Windows Enterprise Security:**
+```bash
+cd windows-ES
+# Follow README.md (currently staged for future implementation)
+```
 
-1. **Change Default Password:** The installation guides use placeholder passwords. Always use strong, unique passwords in production.
+### 3. Deploy Universal Forwarders
 
-2. **Secure Password Storage:** Do not store passwords in plain text. Use PowerShell SecureStrings on Windows.
+Once your Splunk server is configured, deploy forwarders:
 
-3. **Network Segmentation:** Deploy Splunk in a secure network segment with appropriate firewall rules.
+```bash
+# See universal-forwarders/README.md for deployment strategies
+# Use deployment server for centralized management
+```
 
-4. **TLS/SSL:** Consider enabling TLS encryption for forwarder-to-indexer communication in production.
-
-5. **Access Control:** Configure role-based access control (RBAC) for users after installation.
-
-## Troubleshooting
+## Common Troubleshooting
 
 ### Splunk Won't Start
+
 ```bash
 # Check logs
 sudo tail -50 /opt/splunk/var/log/splunk/splunkd.log
@@ -257,18 +183,20 @@ sudo netstat -tulnp | grep 8000
 ```
 
 ### Forwarders Not Connecting
+
 ```bash
 # Check receiving port
 sudo netstat -tulnp | grep 9997
 
 # List connected forwarders
-sudo -u splunk /opt/splunk/bin/splunk list deploy-clients -auth admin:YOUR_PASSWORD
+sudo -u splunk /opt/splunk/bin/splunk list deploy-clients -auth admin:PASSWORD
 
 # Check deployment server configuration
 cat /opt/splunk/etc/system/local/serverclass.conf
 ```
 
 ### Windows Forwarder Issues
+
 ```powershell
 # Check service status
 Get-Service -Name "SplunkForwarder"
@@ -293,10 +221,10 @@ sudo -u splunk /opt/splunk/bin/splunk restart
 sudo -u splunk /opt/splunk/bin/splunk status
 
 # Reload deployment server
-sudo -u splunk /opt/splunk/bin/splunk reload deploy-server -auth admin:YOUR_PASSWORD
+sudo -u splunk /opt/splunk/bin/splunk reload deploy-server -auth admin:PASSWORD
 
 # List forwarders
-sudo -u splunk /opt/splunk/bin/splunk list deploy-clients -auth admin:YOUR_PASSWORD
+sudo -u splunk /opt/splunk/bin/splunk list deploy-clients -auth admin:PASSWORD
 ```
 
 **Windows Forwarder:**
@@ -310,14 +238,6 @@ Get-Service -Name "SplunkForwarder"
 # Check forwarder status
 & "C:\Program Files\SplunkUniversalForwarder\bin\splunk.exe" status
 ```
-
-## Documentation
-
-- **IMPLEMENTATION-LINUX.md** - Complete manual installation guide for Linux servers
-- **IMPLEMENTATION-WINDOWS.md** - Complete manual installation guide for Windows forwarders
-- [Official Splunk Documentation](https://docs.splunk.com/)
-- [Deployment Server Guide](https://docs.splunk.com/Documentation/Splunk/latest/Updating/Aboutdeploymentserver)
-- [Universal Forwarder Guide](https://docs.splunk.com/Documentation/Forwarder/)
 
 ## Useful Splunk Searches
 
@@ -340,9 +260,45 @@ index=* | stats count by host
 index=perfmon source="Perfmon:CPU"
 ```
 
+## Security Considerations
+
+⚠️ **Important Security Notes:**
+
+1. **Change Default Passwords:** Always use strong, unique passwords in production
+2. **Secure Password Storage:** Do not store passwords in plain text
+3. **Network Segmentation:** Deploy Splunk in a secure network segment with appropriate firewall rules
+4. **TLS/SSL:** Consider enabling TLS encryption for forwarder-to-indexer communication in production
+5. **Access Control:** Configure role-based access control (RBAC) for users after installation
+
+## Package Preparation for Transfer
+
+### For Air-Gapped Deployment
+
+1. Download all installers to `installers/` directory
+2. Download all add-ons to `splunkbase/` directory
+3. Package for transfer:
+
+```bash
+# Create compressed archive
+tar czf splunk-installation-package.tar.gz \
+    splunk-installation/ \
+    --exclude=.git \
+    --exclude=.DS_Store
+```
+
+4. Transfer to target environment via approved method (USB, secure transfer, etc.)
+
+## Documentation
+
+- **Sub-Project READMEs:** See each sub-project directory for specific deployment guides
+- **Manual Installation Guides:** Available in sub-project directories (IMPLEMENTATION-*.md)
+- [Official Splunk Documentation](https://docs.splunk.com/)
+- [Deployment Server Guide](https://docs.splunk.com/Documentation/Splunk/latest/Updating/Aboutdeploymentserver)
+- [Universal Forwarder Guide](https://docs.splunk.com/Documentation/Forwarder/)
+
 ## Support and Resources
 
-- **Installation Issues:** See IMPLEMENTATION-LINUX.md or IMPLEMENTATION-WINDOWS.md troubleshooting sections
+- **Installation Issues:** See sub-project IMPLEMENTATION guides for troubleshooting
 - **Splunk Community:** https://community.splunk.com/
 - **Splunk Answers:** https://community.splunk.com/t5/Splunk-Answers/bd-p/splunk-answers
 
@@ -350,41 +306,21 @@ index=perfmon source="Perfmon:CPU"
 
 Splunk software requires appropriate licensing for production use. This package is designed for enterprise deployment and assumes valid Splunk licenses.
 
-## Package Preparation
-
-### For Customer Delivery
-
-1. Download Splunk installers to `installers/` directory:
-   - Splunk Enterprise 10.0.1 or 9.4.6 (both included)
-   - Universal Forwarders (all versions included):
-     - 10.0.2 for Windows (matches Enterprise 10.x)
-     - 9.4.6 for Windows (matches Enterprise 9.4.6)
-     - 9.3.2 for Windows and Linux (universal compatibility)
-
-2. Verify all add-ons are present in `linux-splunk-package/downloads/`
-
-3. Package for transfer:
-   ```bash
-   # Create compressed archive
-   tar czf splunk-installation-package.tar.gz \
-       splunk-installation/ \
-       --exclude=.git \
-       --exclude=.DS_Store
-   ```
-
-4. Transfer to customer environment via approved method (USB, secure transfer, etc.)
-
 ## Changelog
+
+### Version 2.1 (November 2024)
+- Restructured project into multi-deployment framework
+- Created sub-projects: linux-non-ES, windows-ES (staged)
+- Centralized shared resources: installers/, splunkbase/, universal-forwarders/
+- Updated all scripts to reference new directory structure
+- Added comprehensive documentation for each sub-project
 
 ### Version 2.0 (November 2024)
 - Updated to Splunk Enterprise 10.0.1 (with 9.4.6 fallback option)
-- Added manual implementation guides (IMPLEMENTATION-LINUX.md, IMPLEMENTATION-WINDOWS.md)
-- Separated installers from add-ons in git repository
+- Added manual implementation guides
 - Added 18+ pre-configured add-ons
 - Improved offline installation support
 - Added RHEL/CentOS support
-- Fixed tar extraction hang issue in install-addons.sh
-- Both Splunk 10.0.1 and 9.4.6 available for flexibility
 
 ---
 
