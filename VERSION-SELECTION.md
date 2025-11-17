@@ -50,6 +50,8 @@ This package includes **two versions** of Splunk Enterprise for maximum flexibil
 
 | Component | Version 10.0.1 | Version 9.4.6 |
 |-----------|---------------|---------------|
+| **Universal Forwarder 10.0.2** | ✅ **Recommended** | ✅ Compatible (forward compatible) |
+| **Universal Forwarder 9.4.6** | ✅ Compatible (backward compatible) | ✅ **Recommended** |
 | **Universal Forwarder 9.3.2** | ✅ Compatible | ✅ Compatible |
 | **All Add-ons (18+)** | ✅ Compatible | ✅ Compatible |
 | **Ubuntu 22.04+** | ✅ Compatible | ✅ Compatible |
@@ -57,6 +59,16 @@ This package includes **two versions** of Splunk Enterprise for maximum flexibil
 | **RHEL 9** | ⚠️ OpenSSL warnings | ✅ Full compatibility |
 | **Deployment Server** | ✅ Compatible | ✅ Compatible |
 | **CIM Data Models** | ✅ Compatible | ✅ Compatible |
+
+### Universal Forwarder Version Recommendations
+
+**Best Practice:** Match forwarder version to Enterprise version
+
+- **Enterprise 10.0.1** → Use **Forwarder 10.0.2** (159MB Windows)
+- **Enterprise 9.4.6** → Use **Forwarder 9.4.6** (171MB Windows)
+- **Mixed Environment** → Use **Forwarder 9.3.2** (130MB Windows, 47MB Linux) for universal compatibility
+
+**Note:** Splunk supports forward compatibility (newer forwarders → older indexers) and backward compatibility (older forwarders → newer indexers) within the same major version.
 
 ---
 

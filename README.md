@@ -51,8 +51,10 @@ splunk-installation/
 ├── installers/                                # Large installer files (gitignored)
 │   ├── splunk-10.0.1-*-linux-amd64.tgz       # Splunk Enterprise 10.0.1 (1.6GB)
 │   ├── splunk-9.4.6-*-linux-amd64.tgz        # Splunk Enterprise 9.4.6 (1.1GB)
-│   ├── splunkforwarder-9.3.2-*-x64.msi       # Windows forwarder (130MB)
-│   └── splunkforwarder-9.3.2-*-x86_64.tgz    # Linux forwarder (47MB)
+│   ├── splunkforwarder-10.0.2-*-windows-x64.msi  # Windows forwarder for 10.x (159MB)
+│   ├── splunkforwarder-9.4.6-*-windows-x64.msi   # Windows forwarder for 9.4.6 (171MB)
+│   ├── splunkforwarder-9.3.2-*-x64-release.msi   # Windows forwarder legacy (130MB)
+│   └── splunkforwarder-9.3.2-*-Linux-x86_64.tgz  # Linux forwarder (47MB)
 │
 ├── linux-splunk-package/                      # Linux server installation
 │   ├── install-splunk.sh                      # Main Splunk installation script
@@ -134,7 +136,9 @@ cd windows-forwarder-package
 **Splunk Components:**
 - Splunk Enterprise: **10.0.1** (latest version, 1.6GB)
 - Splunk Enterprise: **9.4.6** (stable 9.x version, 1.1GB)
-- Universal Forwarder: **9.3.2** (130MB for Windows, 47MB for Linux)
+- Universal Forwarder: **10.0.2** (159MB for Windows) - for Enterprise 10.x
+- Universal Forwarder: **9.4.6** (171MB for Windows) - for Enterprise 9.4.6
+- Universal Forwarder: **9.3.2** (130MB for Windows, 47MB for Linux) - legacy/universal
 
 **Supported Operating Systems:**
 - Linux: Ubuntu 22.04+, Debian 11+, RHEL 8+, CentOS 8+
@@ -352,7 +356,10 @@ Splunk software requires appropriate licensing for production use. This package 
 
 1. Download Splunk installers to `installers/` directory:
    - Splunk Enterprise 10.0.1 or 9.4.6 (both included)
-   - Splunk Universal Forwarder 9.3.2 (Windows and Linux)
+   - Universal Forwarders (all versions included):
+     - 10.0.2 for Windows (matches Enterprise 10.x)
+     - 9.4.6 for Windows (matches Enterprise 9.4.6)
+     - 9.3.2 for Windows and Linux (universal compatibility)
 
 2. Verify all add-ons are present in `linux-splunk-package/downloads/`
 

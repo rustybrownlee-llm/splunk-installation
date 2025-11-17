@@ -10,10 +10,11 @@ This guide provides step-by-step PowerShell commands for manually installing Spl
 
 - Windows 10/11 or Windows Server 2016+
 - Administrator access
-- Pre-downloaded files in `windows-forwarder-package/` directory:
-  - `splunkforwarder-9.3.2-d8bb32809498-x64-release.msi`
-  - Configuration files in `config/` directory
-  - Add-on files: `splunk-add-on-for-microsoft-windows_901.tgz` and `splunk-supporting-add-on-for-active-directory_311.tgz`
+- Pre-downloaded Universal Forwarder installer (choose based on your Splunk Enterprise version):
+  - `splunkforwarder-10.0.2-*-windows-x64.msi` (159MB) - For Enterprise 10.x
+  - `splunkforwarder-9.4.6-*-windows-x64.msi` (171MB) - For Enterprise 9.4.6
+  - `splunkforwarder-9.3.2-*-x64-release.msi` (130MB) - Universal compatibility
+- Optional add-on files: `splunk-add-on-for-microsoft-windows_901.tgz` and `splunk-supporting-add-on-for-active-directory_311.tgz`
 
 ---
 
@@ -27,8 +28,16 @@ Right-click **PowerShell** → **Run as Administrator**
 
 ```powershell
 cd C:\Path\To\windows-forwarder-package
-# Verify installer exists
-Get-Item splunkforwarder-9.3.2-d8bb32809498-x64-release.msi
+
+# Verify installer exists (use the version matching your Splunk Enterprise)
+# For Enterprise 10.x:
+Get-Item splunkforwarder-10.0.2-*-windows-x64.msi
+
+# For Enterprise 9.4.6:
+Get-Item splunkforwarder-9.4.6-*-windows-x64.msi
+
+# For universal compatibility:
+Get-Item splunkforwarder-9.3.2-*-x64-release.msi
 ```
 
 ### Step 3: Set Configuration Variables
@@ -45,7 +54,16 @@ $ReceivingPort = "9997"
 ### Step 4: Install Universal Forwarder (Silent Mode)
 
 ```powershell
-$InstallerPath = ".\splunkforwarder-9.3.2-d8bb32809498-x64-release.msi"
+# Choose the installer version matching your Splunk Enterprise version
+# For Enterprise 10.x (recommended):
+$InstallerPath = ".\splunkforwarder-10.0.2-*-windows-x64.msi"
+
+# For Enterprise 9.4.6 (recommended):
+# $InstallerPath = ".\splunkforwarder-9.4.6-*-windows-x64.msi"
+
+# For universal compatibility:
+# $InstallerPath = ".\splunkforwarder-9.3.2-*-x64-release.msi"
+
 $InstallDir = "C:\Program Files\SplunkUniversalForwarder"
 
 # Create installation command
@@ -282,7 +300,7 @@ Get-Service -Name "SplunkForwarder" | Format-List *
 & "C:\Program Files\SplunkUniversalForwarder\bin\splunk.exe" version
 ```
 
-**Expected**: Shows version 9.3.2
+**Expected**: Shows version 10.0.2, 9.4.6, or 9.3.2 (depending on which installer you used)
 
 ### View Configuration Files
 
@@ -498,7 +516,7 @@ param(
     [Parameter(Mandatory=$true)]
     [string]$SplunkPassword,
 
-    [string]$InstallerPath = ".\splunkforwarder-9.3.2-d8bb32809498-x64-release.msi"
+    [string]$InstallerPath = ".\splunkforwarder-10.0.2-*-windows-x64.msi"  # Or use 9.4.6 or 9.3.2
 )
 
 # Installation
