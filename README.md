@@ -49,8 +49,8 @@ splunk-installation/
 ├── IMPLEMENTATION-WINDOWS.md                  # Manual Windows installation guide
 │
 ├── installers/                                # Large installer files (gitignored)
-│   ├── splunk-10.0.1-*-linux-amd64.tgz       # Splunk Enterprise (1.6GB)
-│   ├── splunk-9.3.2-*-linux-amd64.tgz        # Splunk 9.x fallback version
+│   ├── splunk-10.0.1-*-linux-amd64.tgz       # Splunk Enterprise 10.0.1 (1.6GB)
+│   ├── splunk-9.4.6-*-linux-amd64.tgz        # Splunk Enterprise 9.4.6 (1.1GB)
 │   ├── splunkforwarder-9.3.2-*-x64.msi       # Windows forwarder (130MB)
 │   └── splunkforwarder-9.3.2-*-x86_64.tgz    # Linux forwarder (47MB)
 │
@@ -132,9 +132,9 @@ cd windows-forwarder-package
 ## Version Information
 
 **Splunk Components:**
-- Splunk Enterprise: **10.0.1** (primary version)
-- Splunk Enterprise: **9.3.2** (fallback version, available on request)
-- Universal Forwarder: **9.3.2**
+- Splunk Enterprise: **10.0.1** (latest version, 1.6GB)
+- Splunk Enterprise: **9.4.6** (stable 9.x version, 1.1GB)
+- Universal Forwarder: **9.3.2** (130MB for Windows, 47MB for Linux)
 
 **Supported Operating Systems:**
 - Linux: Ubuntu 22.04+, Debian 11+, RHEL 8+, CentOS 8+
@@ -351,8 +351,8 @@ Splunk software requires appropriate licensing for production use. This package 
 ### For Customer Delivery
 
 1. Download Splunk installers to `installers/` directory:
-   - Splunk Enterprise 10.0.1 (or 9.3.2 fallback)
-   - Splunk Universal Forwarder 9.3.2
+   - Splunk Enterprise 10.0.1 or 9.4.6 (both included)
+   - Splunk Universal Forwarder 9.3.2 (Windows and Linux)
 
 2. Verify all add-ons are present in `linux-splunk-package/downloads/`
 
@@ -370,13 +370,14 @@ Splunk software requires appropriate licensing for production use. This package 
 ## Changelog
 
 ### Version 2.0 (November 2024)
-- Updated to Splunk Enterprise 10.0.1
+- Updated to Splunk Enterprise 10.0.1 (with 9.4.6 fallback option)
 - Added manual implementation guides (IMPLEMENTATION-LINUX.md, IMPLEMENTATION-WINDOWS.md)
 - Separated installers from add-ons in git repository
 - Added 18+ pre-configured add-ons
 - Improved offline installation support
 - Added RHEL/CentOS support
 - Fixed tar extraction hang issue in install-addons.sh
+- Both Splunk 10.0.1 and 9.4.6 available for flexibility
 
 ---
 
