@@ -60,17 +60,40 @@ This document tracks remaining documentation needed for complete customer handof
 **Document**: `operations/ES-USER-MANAGEMENT.md`
 
 **Contents**:
+
+**User Authentication & Authorization**:
 - ES roles explained (ess_admin, ess_analyst, ess_user)
+- Splunk platform roles (admin, power, user)
+- LDAP authentication strategy configuration
+- AD group to Splunk/ES role mapping
 - Role assignment procedures
 - Creating custom roles if needed
 - User onboarding workflow
 - Access control best practices
 - Least-privilege recommendations
-- Authentication options (local vs LDAP)
 
-**Why**: Customer needs to manage their own users after we leave. This is operational day-one requirement.
+**Identity and Asset Management**:
+- Identity TTL (Time-to-Live) configuration
+  - Default: 90 days, Recommended: 180-365 days
+  - Retains deleted/disabled AD users for forensic investigations
+  - ES 7.0+ feature - no manual identity merging required
+- Identity merge process explanation
+- Asset TTL configuration
+- Monitoring identity staleness (saved search for approaching TTL)
+- Manual identity management procedures
+- Multiple identity sources (if applicable)
 
-**When**: After ES is installed and we've tested user/role creation in AWS
+**Testing & Validation**:
+- Test user login with each role
+- Verify AD group membership grants correct access
+- Test identity merge behavior (disable AD user, verify retention)
+- Validate identity enrichment in notable events
+
+**Why**: Customer needs to manage their own users after we leave. This is operational day-one requirement. Identity TTL configuration is critical for forensic investigations and compliance.
+
+**When**: After ES is installed and we've tested user/role creation and LDAP authentication in AWS
+
+**Critical Testing**: Verify identity merge behavior works correctly - disable test AD user, confirm identity remains in lookup with last_seen timestamp
 
 ---
 
