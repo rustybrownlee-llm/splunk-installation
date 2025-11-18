@@ -131,14 +131,14 @@ All custom add-ons use the `hap_` prefix for easy identification.
 1. **Splunkbase Add-ons** (already downloaded to `../splunkbase/`):
    - ✓ Splunk Common Information Model (CIM) 6.2.0
    - ✓ Splunk Add-on for Microsoft Windows 9.0.1
-   - ✓ Splunk Supporting Add-on for Active Directory 3.1.1
+   - ✓ Splunk Supporting Add-on for Active Directory 3.1.1 (ad-ldap_237.tgz)
    - ✓ Splunk Add-on for Sysmon 5.0.0
    - ✓ Splunk Add-on for Cisco ASA 6.0.0
    - ✓ Palo Alto Networks Add-ons
 
-2. **Download from My.Splunk.com**:
-   - Enterprise Security (ES) app
-   - Splunk_TA_ForIndexers (included with ES)
+2. **Enterprise Security** (already downloaded to `../installers/`):
+   - ✓ Splunk Enterprise Security 8.2.3 (splunk-enterprise-security_823.spl)
+   - ✓ Splunk_TA_ForIndexers (included within the ES .spl file)
 
 3. **Download from Splunkbase**:
    - Splunk Add-on for Microsoft DNS
@@ -152,7 +152,11 @@ All custom add-ons use the `hap_` prefix for easy identification.
 msiexec /i splunk-10.0.1-x64-release.msi
 
 # 2. CRITICAL: Install Splunk_TA_ForIndexers FIRST (from ES package)
-# Extract from ES .spl file and install via Web UI or CLI
+# Extract Splunk_TA_ForIndexers from splunk-enterprise-security_823.spl
+# Method 1: Via Web UI (Settings → Apps → Install app from file)
+# Method 2: Via CLI:
+#   Rename .spl to .tar.gz, extract, find Splunk_TA_ForIndexers.spl inside
+#   Install: .\splunk install app C:\path\to\Splunk_TA_ForIndexers.spl -auth admin:password
 
 # 3. Install custom add-on
 Copy-Item -Recurse "hap_add-on_es_indexes" "C:\Program Files\Splunk\etc\apps\"
@@ -181,8 +185,11 @@ msiexec /i splunk-10.0.1-x64-release.msi
 # 2. Install CIM add-on
 # Via Web UI or extract to C:\Program Files\Splunk\etc\apps\
 
-# 3. Install Enterprise Security
-# Follow ES installation guide (manual process)
+# 3. Install Enterprise Security 8.2.3
+# Install splunk-enterprise-security_823.spl via Web UI or CLI:
+# Web UI: Settings → Apps → Install app from file → Browse to .spl file
+# CLI: .\splunk install app C:\path\to\splunk-enterprise-security_823.spl -auth admin:password
+# Follow ES post-installation configuration wizard
 
 # 4. Configure License Master
 cd "C:\Program Files\Splunk\bin"

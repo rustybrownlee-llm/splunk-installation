@@ -80,10 +80,10 @@ Server 1 (Stratus ftServer)           Server 2 (Stratus ftServer)
 
 - ✓ **Splunk Common Information Model (CIM)** 6.2.0 - Already in ../splunkbase/
 - ✓ **Splunk Add-on for Microsoft Windows** 9.0.1 - Already in ../splunkbase/
-- ✓ **Splunk Supporting Add-on for Active Directory** 3.1.1 - Already in ../splunkbase/
+- ✓ **Splunk Supporting Add-on for Active Directory** 3.1.1 - Already in ../splunkbase/ (ad-ldap_237.tgz)
 - ✓ **Splunk Add-on for Sysmon** 5.0.0 - Already in ../splunkbase/
-- ⏳ **Splunk Enterprise Security (ES)** - Download from My.Splunk.com
-- ⏳ **Splunk_TA_ForIndexers** - Included with ES, install FIRST on Server 2
+- ✓ **Splunk Enterprise Security (ES)** 8.2.3 - Already in ../installers/ (splunk-enterprise-security_823.spl)
+- ✓ **Splunk_TA_ForIndexers** - Included with ES .spl file, install FIRST on Server 2
 - ⏳ **Splunk Add-on for Microsoft DNS** - Download from Splunkbase
 - ⏳ **Splunk Add-on for Microsoft DHCP** - Download from Splunkbase
 - ⏳ **Splunk Add-on for Cisco Cyber Vision** - Download from Splunkbase
@@ -102,28 +102,29 @@ Server 1 (Stratus ftServer)           Server 2 (Stratus ftServer)
 ## Installation Order - Server 2 (Indexer)
 
 1. Install Splunk Enterprise 10.0.1 (MSI installer)
-2. **Install Splunk_TA_ForIndexers** (from ES package) - CRITICAL FIRST STEP
+2. **Install Splunk_TA_ForIndexers** (extract from splunk-enterprise-security_823.spl) - CRITICAL FIRST STEP
 3. Install hap_add-on_es_indexes
-4. Install CIM add-on
-5. Install Windows TAs (Microsoft Windows, AD, Sysmon)
+4. Install CIM add-on (splunk-common-information-model_620.tgz)
+5. Install Windows TAs (Microsoft Windows, AD LDAP ad-ldap_237.tgz, Sysmon)
 6. Install network TAs (Cisco, Palo Alto)
-7. Install DNS/DHCP TAs
-8. Install Cyber Vision TA
+7. Install DNS/DHCP TAs (if available)
+8. Install Cyber Vision TA (if available)
 9. Configure receiving (port 9997)
 10. Restart Splunk
 
 ## Installation Order - Server 1 (ES Search Head)
 
 1. Install Splunk Enterprise 10.0.1 (MSI installer)
-2. Install CIM add-on
-3. **Install Enterprise Security app** - Manual process, follow ES install guide
+2. Install CIM add-on (splunk-common-information-model_620.tgz)
+3. **Install Enterprise Security 8.2.3** (splunk-enterprise-security_823.spl) - Manual process via Web UI or CLI
 4. Configure License Master
 5. Configure Deployment Server
-6. Install hap_add-on_frozen_archive
-7. Install hap_add-on_distributed_search (or use CLI to add search peer)
-8. Configure distributed search to Server 2
-9. Restart Splunk
-10. Complete ES setup wizard
+6. Install hap_add-on_es_indexes_searchhead
+7. Install hap_add-on_frozen_archive (if using frozen bucket storage)
+8. Install hap_add-on_distributed_search (or use CLI to add search peer - preferred)
+9. Configure distributed search to Server 2
+10. Restart Splunk
+11. Complete ES setup wizard
 
 ## Implementation Guides Needed
 
