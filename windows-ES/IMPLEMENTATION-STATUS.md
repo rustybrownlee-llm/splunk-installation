@@ -132,6 +132,13 @@ Server 1 (Stratus ftServer)           Server 2 (Stratus ftServer)
 10. Restart Splunk
 11. Complete ES setup wizard
 
+## Preparation Documents Completed
+
+- ✅ **AD-SERVICE-ACCOUNT-SETUP.md** - Customer guide for AD service account setup
+  - Location: `windows-ES/preparation-docs/AD-SERVICE-ACCOUNT-SETUP.md`
+  - Purpose: Instructions for creating and configuring AD service account for ES asset/identity collection
+  - Includes: Permissions, testing, troubleshooting, and PowerShell test scripts
+
 ## Implementation Guides Needed
 
 - ⏳ **IMPLEMENTATION-SERVER1.md** - ES Search Head setup guide
@@ -142,9 +149,8 @@ Server 1 (Stratus ftServer)           Server 2 (Stratus ftServer)
 
 ## Configuration Templates Needed
 
-- ⏳ Deployment server serverclass.conf
+- ✅ ~~Deployment server serverclass.conf~~ - DONE (windows-ES/server-configs/serverclass.conf)
 - ⏳ License configuration
-- ⏳ ES asset/identity framework templates
 - ⏳ Data model acceleration tuning
 
 ## Next Steps
