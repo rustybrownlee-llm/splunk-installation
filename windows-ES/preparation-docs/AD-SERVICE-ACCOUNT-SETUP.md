@@ -103,6 +103,217 @@ For better security and auditability, create a dedicated group with explicit per
    dsacls "DC=domain,DC=com" | Select-String "SG_Splunk_LDAP_Readers"
    ```
 
+## Active Directory Groups for Splunk User Access
+
+### Purpose
+
+In addition to the service account for data collection, you need to plan Active Directory groups for controlling human user access to Splunk and Enterprise Security. This enables centralized access management through AD rather than maintaining local Splunk users.
+
+### Benefits of AD Group-Based Access
+
+- **Centralized Management**: Use existing AD groups and processes
+- **Automated Provisioning**: Users automatically get access when added to AD group
+- **Automatic Deprovisioning**: Access revoked when removed from group
+- **Audit Trail**: AD group membership changes are logged
+- **Consistency**: Align with existing IAM practices
+- **Role-Based Access Control**: Map AD groups to Splunk/ES roles
+
+### Recommended AD Group Structure
+
+Create the following security groups in Active Directory:
+
+#### Splunk Platform Roles
+
+| AD Group Name | Splunk Role | Access Level | Description |
+|---------------|-------------|--------------|-------------|
+| `SG_Splunk_Admins` | admin | Full Control | Splunk platform administrators |
+| `SG_Splunk_Power_Users` | power | Advanced | Can create knowledge objects, private apps |
+| `SG_Splunk_Users` | user | Standard | Basic search and dashboard access |
+
+#### Enterprise Security Roles
+
+| AD Group Name | ES Role | Access Level | Description |
+|---------------|---------|--------------|-------------|
+| `SG_ES_Admins` | ess_admin | Full ES Control | ES administrators, correlation search management |
+| `SG_ES_Analysts` | ess_analyst | Investigation | Security analysts, notable event management |
+| `SG_ES_Users` | ess_user | Read-Only | View-only access to ES dashboards and data |
+
+### Group Naming Convention
+
+**Recommended Format**: `SG_Splunk_<Role>` or `SG_ES_<Role>`
+
+**Rationale**:
+- `SG_` prefix identifies security groups used for application access
+- `Splunk_` or `ES_` identifies the application
+- `<Role>` describes the access level
+- Follows standard naming patterns for easy identification
+
+**Alternative Formats** (use what matches your organization):
+- `APP-Splunk-Admins`
+- `Splunk-ES-Analysts`
+- `GG_Splunk_Admin` (Global Group)
+
+### Group Creation Steps
+
+#### 1. Create Security Groups
+
+**Using Active Directory Users and Computers:**
+
+1. Open **Active Directory Users and Computers**
+2. Navigate to appropriate OU (e.g., `OU=Security Groups,DC=domain,DC=com`)
+3. Right-click OU → **New** → **Group**
+4. Create each group with settings:
+   - **Group name**: `SG_Splunk_Admins` (example)
+   - **Group scope**: Global (recommended) or Universal
+   - **Group type**: Security
+   - **Description**: "Splunk platform administrators - full access"
+   - Click **OK**
+
+5. Repeat for all groups listed above
+
+**Using PowerShell:**
+
+```powershell
+# Import AD module
+Import-Module ActiveDirectory
+
+# Define group OU
+$GroupOU = "OU=Security Groups,DC=domain,DC=com"
+
+# Create Splunk platform groups
+New-ADGroup -Name "SG_Splunk_Admins" -GroupScope Global -GroupCategory Security `
+    -Path $GroupOU -Description "Splunk platform administrators - full access"
+
+New-ADGroup -Name "SG_Splunk_Power_Users" -GroupScope Global -GroupCategory Security `
+    -Path $GroupOU -Description "Splunk power users - advanced search and knowledge object creation"
+
+New-ADGroup -Name "SG_Splunk_Users" -GroupScope Global -GroupCategory Security `
+    -Path $GroupOU -Description "Splunk standard users - basic search and dashboard access"
+
+# Create Enterprise Security groups
+New-ADGroup -Name "SG_ES_Admins" -GroupScope Global -GroupCategory Security `
+    -Path $GroupOU -Description "Enterprise Security administrators - full ES management"
+
+New-ADGroup -Name "SG_ES_Analysts" -GroupScope Global -GroupCategory Security `
+    -Path $GroupOU -Description "Enterprise Security analysts - notable event investigation"
+
+New-ADGroup -Name "SG_ES_Users" -GroupScope Global -GroupCategory Security `
+    -Path $GroupOU -Description "Enterprise Security users - read-only dashboard access"
+```
+
+#### 2. Populate Groups with Initial Members
+
+**Identify Initial Users**:
+- **Splunk Admins**: IT administrators who will manage Splunk platform
+- **ES Admins**: Security team leads who will configure ES
+- **ES Analysts**: SOC analysts who will investigate alerts
+- **ES Users**: Management, compliance, read-only stakeholders
+
+**Add Members**:
+
+```powershell
+# Example: Add users to groups
+Add-ADGroupMember -Identity "SG_Splunk_Admins" -Members "john.doe", "jane.smith"
+Add-ADGroupMember -Identity "SG_ES_Analysts" -Members "soc.analyst1", "soc.analyst2"
+```
+
+**Best Practice**: Start with a small number of administrators, expand access as needed.
+
+### Group Membership Guidelines
+
+#### Splunk Platform Access
+
+- **SG_Splunk_Admins**:
+  - Splunk platform administrators
+  - Responsible for system health, configuration, upgrades
+  - Limited to 2-5 people
+
+- **SG_Splunk_Power_Users**:
+  - Advanced users who create saved searches, dashboards, alerts
+  - Data engineers, advanced analysts
+  - As needed (5-15 people)
+
+- **SG_Splunk_Users**:
+  - General users who need to search data
+  - May not be needed if all users are ES-focused
+  - As needed (10-50+ people)
+
+#### Enterprise Security Access
+
+- **SG_ES_Admins**:
+  - Security engineering team
+  - Manage correlation searches, notable event rules, suppression
+  - Limited to 2-5 people
+
+- **SG_ES_Analysts**:
+  - SOC analysts (Tier 1, Tier 2, Tier 3)
+  - Investigate and respond to notable events
+  - Primary ES user base (10-30 people)
+
+- **SG_ES_Users**:
+  - Management, compliance, read-only stakeholders
+  - View dashboards, run predefined searches
+  - As needed (5-20 people)
+
+### Overlapping Membership Considerations
+
+Users can be members of multiple groups:
+
+**Common Combinations**:
+- ES Admin + Splunk Admin (security engineering team)
+- ES Analyst + Splunk User (SOC analysts who also search raw data)
+- ES Admin + ES Analyst (small teams where admins also investigate)
+
+**Role Priority**: If user is in multiple groups, highest privilege applies.
+
+### Group Information for Splunk Team
+
+Provide the following information to the Splunk implementation team:
+
+```
+Splunk Access Control Groups
+=============================
+
+Splunk Platform Roles:
+- Admin Group: SG_Splunk_Admins
+- Power User Group: SG_Splunk_Power_Users
+- User Group: SG_Splunk_Users
+
+Enterprise Security Roles:
+- ES Admin Group: SG_ES_Admins
+- ES Analyst Group: SG_ES_Analysts
+- ES User Group: SG_ES_Users
+
+Domain: DOMAIN
+LDAP Base DN: DC=domain,DC=com
+Group DN Examples:
+- CN=SG_ES_Analysts,OU=Security Groups,DC=domain,DC=com
+```
+
+### Testing Group Access
+
+After groups are created and populated:
+
+1. Verify group membership:
+   ```powershell
+   Get-ADGroupMember -Identity "SG_ES_Analysts"
+   ```
+
+2. Verify user can authenticate to AD
+3. Splunk team will configure LDAP authentication strategy
+4. Splunk team will map AD groups to Splunk/ES roles
+5. Test user login with each role to verify access levels
+
+### Access Review Process
+
+Establish quarterly review process:
+
+- Review group membership
+- Remove users who no longer need access
+- Adjust role assignments as responsibilities change
+- Document changes in change management system
+- Maintain audit trail of access changes
+
 ## Service Account Creation Steps
 
 ### Step 1: Create the Service Account
