@@ -140,10 +140,12 @@ All custom add-ons use the `hap_` prefix for easy identification.
    - ✓ Splunk Enterprise Security 8.2.3 (splunk-enterprise-security_823.spl)
    - ✓ Splunk_TA_ForIndexers (included within the ES .spl file)
 
-3. **Download from Splunkbase**:
+3. **Additional Add-ons** (already downloaded to `../splunkbase/`):
+   - ✓ Splunk Add-on for Cisco Cyber Vision 2.1.0 (cisco-cyber-vision-splunk-add-on_210.tgz)
+
+4. **Still needed from Splunkbase**:
    - Splunk Add-on for Microsoft DNS
    - Splunk Add-on for Microsoft DHCP
-   - Splunk Add-on for Cisco Cyber Vision
 
 ### Server 2 (Indexer) Installation
 
@@ -162,11 +164,13 @@ msiexec /i splunk-10.0.1-x64-release.msi
 Copy-Item -Recurse "hap_add-on_es_indexes" "C:\Program Files\Splunk\etc\apps\"
 
 # 4. Install Splunkbase add-ons
-# - CIM
-# - Windows TA
-# - AD TA
-# - Sysmon TA
-# - Network TAs (Cisco, Palo Alto, DNS, DHCP)
+# - CIM (splunk-common-information-model_620.tgz)
+# - Windows TA (splunk-add-on-for-microsoft-windows_*.tgz)
+# - AD TA (ad-ldap_237.tgz)
+# - Sysmon TA (splunk-add-on-for-sysmon_*.tgz)
+# - Network TAs (Cisco ASA, Palo Alto)
+# - Cisco Cyber Vision (cisco-cyber-vision-splunk-add-on_210.tgz)
+# - DNS/DHCP TAs (if available)
 
 # 5. Configure receiving port 9997
 cd "C:\Program Files\Splunk\bin"

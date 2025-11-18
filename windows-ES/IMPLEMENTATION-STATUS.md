@@ -84,9 +84,9 @@ Server 1 (Stratus ftServer)           Server 2 (Stratus ftServer)
 - ✓ **Splunk Add-on for Sysmon** 5.0.0 - Already in ../splunkbase/
 - ✓ **Splunk Enterprise Security (ES)** 8.2.3 - Already in ../installers/ (splunk-enterprise-security_823.spl)
 - ✓ **Splunk_TA_ForIndexers** - Included with ES .spl file, install FIRST on Server 2
+- ✓ **Splunk Add-on for Cisco Cyber Vision** 2.1.0 - Already in ../splunkbase/ (cisco-cyber-vision-splunk-add-on_210.tgz)
 - ⏳ **Splunk Add-on for Microsoft DNS** - Download from Splunkbase
 - ⏳ **Splunk Add-on for Microsoft DHCP** - Download from Splunkbase
-- ⏳ **Splunk Add-on for Cisco Cyber Vision** - Download from Splunkbase
 - ⏳ **Splunk_SA_ExtremeSearch** - Optional, download from Splunkbase
 
 ### Network (Some already downloaded)
@@ -106,9 +106,9 @@ Server 1 (Stratus ftServer)           Server 2 (Stratus ftServer)
 3. Install hap_add-on_es_indexes
 4. Install CIM add-on (splunk-common-information-model_620.tgz)
 5. Install Windows TAs (Microsoft Windows, AD LDAP ad-ldap_237.tgz, Sysmon)
-6. Install network TAs (Cisco, Palo Alto)
-7. Install DNS/DHCP TAs (if available)
-8. Install Cyber Vision TA (if available)
+6. Install network TAs (Cisco ASA, Palo Alto)
+7. Install Cisco Cyber Vision TA (cisco-cyber-vision-splunk-add-on_210.tgz)
+8. Install DNS/DHCP TAs (if available)
 9. Configure receiving (port 9997)
 10. Restart Splunk
 
