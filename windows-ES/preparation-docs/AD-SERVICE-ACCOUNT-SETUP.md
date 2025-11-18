@@ -88,13 +88,13 @@ For better security and auditability, create a dedicated group with explicit per
    - Select **Create a custom task to delegate** → **Next**
    - Select **This folder, existing objects in this folder, and creation of new objects in this folder**
    - Check:
-     - ☑ User objects
-     - ☑ Computer objects
-     - ☑ Group objects (optional, for group membership info)
+     - User objects
+     - Computer objects
+     - Group objects (optional, for group membership info)
    - Click **Next**
    - Under Permissions, check:
-     - ☑ Read All Properties
-     - ☑ List Contents
+     - Read All Properties
+     - List Contents
    - Click **Next** → **Finish**
 
 4. **Verify Permissions**:
@@ -121,9 +121,9 @@ For better security and auditability, create a dedicated group with explicit per
    - Click **Next**
 5. Set password:
    - **Password**: [Generate strong 20+ character password]
-   - ☑ User cannot change password
-   - ☑ Password never expires
-   - ☐ User must change password at next logon
+   - Check: User cannot change password
+   - Check: Password never expires
+   - Uncheck: User must change password at next logon
    - Click **Next** → **Finish**
 
 **Using PowerShell** (optional):
