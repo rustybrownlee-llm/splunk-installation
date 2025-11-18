@@ -31,9 +31,9 @@ Even though Server 1 doesn't store data, it needs to know about indexes for:
 | Aspect | Indexer Version | Search Head Version |
 |--------|----------------|---------------------|
 | Location | Server 2 | Server 1 |
-| Storage paths | ✓ Defined | ✗ Not defined |
-| Frozen rollover | ✓ Configured | ✗ Not applicable |
-| Size limits | ✓ Set | ✗ Not needed |
+| Storage paths | [X] Defined | ✗ Not defined |
+| Frozen rollover | [X] Configured | ✗ Not applicable |
+| Size limits | [X] Set | ✗ Not needed |
 | Purpose | Store data | UI visibility |
 
 ## Configuration Required

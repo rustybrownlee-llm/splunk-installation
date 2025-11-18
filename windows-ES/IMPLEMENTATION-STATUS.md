@@ -20,7 +20,7 @@ Server 1 (Stratus ftServer)           Server 2 (Stratus ftServer)
 
 ## Custom Add-ons Created (hap_ prefix)
 
-### ✅ Custom Add-ons Completed
+### [DONE] Custom Add-ons Completed
 
 1. **hap_add-on_es_indexes** - ES index definitions for Server 2
    - Location: `windows-ES/custom-addons/hap_add-on_es_indexes/`
@@ -40,7 +40,7 @@ Server 1 (Stratus ftServer)           Server 2 (Stratus ftServer)
    - Purpose: Configure Server 1 to search Server 2
    - Note: CLI method (`splunk add search-server`) is preferred
 
-### ✅ Server Configurations Completed
+### [DONE] Server Configurations Completed
 
 4. **frozen-archive-setup** - Frozen bucket receiver for Server 1
    - Location: `windows-ES/server-configs/frozen-archive-setup/`
@@ -54,7 +54,7 @@ Server 1 (Stratus ftServer)           Server 2 (Stratus ftServer)
    - Purpose: Control which apps deploy to which forwarders
    - Server Classes: AllForwarders, WindowsForwarders
 
-### ✅ Deployment Apps Completed
+### [DONE] Deployment Apps Completed
 
 6. **hap_add-on_deployment** - Deployment client config
    - Location: `windows-ES/deployment-apps/hap_add-on_deployment/`
@@ -84,21 +84,21 @@ Server 1 (Stratus ftServer)           Server 2 (Stratus ftServer)
 
 ### Critical (Get from Splunkbase)
 
-- ✓ **Splunk Common Information Model (CIM)** 6.2.0 - Already in ../splunkbase/
-- ✓ **Splunk Add-on for Microsoft Windows** 9.0.1 - Already in ../splunkbase/
-- ✓ **Splunk Supporting Add-on for Active Directory** 3.1.1 - Already in ../splunkbase/ (ad-ldap_237.tgz)
-- ✓ **Splunk Add-on for Sysmon** 5.0.0 - Already in ../splunkbase/
-- ✓ **Splunk Enterprise Security (ES)** 8.2.3 - Already in ../installers/ (splunk-enterprise-security_823.spl)
-- ✓ **Splunk_TA_ForIndexers** - Included with ES .spl file, install FIRST on Server 2
-- ✓ **Splunk Add-on for Cisco Cyber Vision** 2.1.0 - Already in ../splunkbase/ (cisco-cyber-vision-splunk-add-on_210.tgz)
-- ⏳ **Splunk Add-on for Microsoft DNS** - Download from Splunkbase
-- ⏳ **Splunk Add-on for Microsoft DHCP** - Download from Splunkbase
-- ⏳ **Splunk_SA_ExtremeSearch** - Optional, download from Splunkbase
+- [X] **Splunk Common Information Model (CIM)** 6.2.0 - Already in ../splunkbase/
+- [X] **Splunk Add-on for Microsoft Windows** 9.0.1 - Already in ../splunkbase/
+- [X] **Splunk Supporting Add-on for Active Directory** 3.1.1 - Already in ../splunkbase/ (ad-ldap_237.tgz)
+- [X] **Splunk Add-on for Sysmon** 5.0.0 - Already in ../splunkbase/
+- [X] **Splunk Enterprise Security (ES)** 8.2.3 - Already in ../installers/ (splunk-enterprise-security_823.spl)
+- [X] **Splunk_TA_ForIndexers** - Included with ES .spl file, install FIRST on Server 2
+- [X] **Splunk Add-on for Cisco Cyber Vision** 2.1.0 - Already in ../splunkbase/ (cisco-cyber-vision-splunk-add-on_210.tgz)
+- [TODO] **Splunk Add-on for Microsoft DNS** - Download from Splunkbase
+- [TODO] **Splunk Add-on for Microsoft DHCP** - Download from Splunkbase
+- [TODO] **Splunk_SA_ExtremeSearch** - Optional, download from Splunkbase
 
 ### Network (Some already downloaded)
 
-- ✓ **Splunk Add-on for Cisco ASA** 6.0.0 - Already in ../splunkbase/
-- ✓ **Palo Alto Networks Add-ons** - Already in ../splunkbase/
+- [X] **Splunk Add-on for Cisco ASA** 6.0.0 - Already in ../splunkbase/
+- [X] **Palo Alto Networks Add-ons** - Already in ../splunkbase/
 
 ### Optional Enhancements
 
@@ -134,32 +134,32 @@ Server 1 (Stratus ftServer)           Server 2 (Stratus ftServer)
 
 ## Preparation Documents Completed
 
-- ✅ **AD-SERVICE-ACCOUNT-SETUP.md** - Customer guide for AD service account setup
+- [DONE] **AD-SERVICE-ACCOUNT-SETUP.md** - Customer guide for AD service account setup
   - Location: `windows-ES/preparation-docs/AD-SERVICE-ACCOUNT-SETUP.md`
   - Purpose: Instructions for creating and configuring AD service account for ES asset/identity collection
   - Includes: Permissions, testing, troubleshooting, and PowerShell test scripts
 
 ## Implementation Guides Needed
 
-- ⏳ **IMPLEMENTATION-SERVER1.md** - ES Search Head setup guide
-- ⏳ **IMPLEMENTATION-SERVER2.md** - Indexer setup guide
-- ⏳ **IMPLEMENTATION-FORWARDERS.md** - Windows forwarder deployment
-- ⏳ **ES-INSTALLATION-GUIDE.md** - Enterprise Security specific steps
-- ⏳ **VERIFICATION-CHECKLIST.md** - Post-install validation
+- [TODO] **IMPLEMENTATION-SERVER1.md** - ES Search Head setup guide
+- [TODO] **IMPLEMENTATION-SERVER2.md** - Indexer setup guide
+- [TODO] **IMPLEMENTATION-FORWARDERS.md** - Windows forwarder deployment
+- [TODO] **ES-INSTALLATION-GUIDE.md** - Enterprise Security specific steps
+- [TODO] **VERIFICATION-CHECKLIST.md** - Post-install validation
 
 ## Configuration Templates Needed
 
-- ✅ ~~Deployment server serverclass.conf~~ - DONE (windows-ES/server-configs/serverclass.conf)
-- ⏳ License configuration
-- ⏳ Data model acceleration tuning
+- [DONE] ~~Deployment server serverclass.conf~~ - DONE (windows-ES/server-configs/serverclass.conf)
+- [TODO] License configuration
+- [TODO] Data model acceleration tuning
 
 ## Next Steps
 
-1. ✅ ~~Complete remaining custom add-ons~~ - DONE
-2. ⏳ Create implementation guides for both servers
-3. ⏳ Document ES installation process
-4. ⏳ Create verification checklists
-5. ⏳ Download remaining Splunkbase add-ons
+1. [DONE] ~~Complete remaining custom add-ons~~ - DONE
+2. [TODO] Create implementation guides for both servers
+3. [TODO] Document ES installation process
+4. [TODO] Create verification checklists
+5. [TODO] Download remaining Splunkbase add-ons
 
 ## Notes
 

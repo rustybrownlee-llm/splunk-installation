@@ -129,19 +129,19 @@ All custom add-ons use the `hap_` prefix for easy identification.
 ### Prerequisites
 
 1. **Splunkbase Add-ons** (already downloaded to `../splunkbase/`):
-   - ✓ Splunk Common Information Model (CIM) 6.2.0
-   - ✓ Splunk Add-on for Microsoft Windows 9.0.1
-   - ✓ Splunk Supporting Add-on for Active Directory 3.1.1 (ad-ldap_237.tgz)
-   - ✓ Splunk Add-on for Sysmon 5.0.0
-   - ✓ Splunk Add-on for Cisco ASA 6.0.0
-   - ✓ Palo Alto Networks Add-ons
+   - [X] Splunk Common Information Model (CIM) 6.2.0
+   - [X] Splunk Add-on for Microsoft Windows 9.0.1
+   - [X] Splunk Supporting Add-on for Active Directory 3.1.1 (ad-ldap_237.tgz)
+   - [X] Splunk Add-on for Sysmon 5.0.0
+   - [X] Splunk Add-on for Cisco ASA 6.0.0
+   - [X] Palo Alto Networks Add-ons
 
 2. **Enterprise Security** (already downloaded to `../installers/`):
-   - ✓ Splunk Enterprise Security 8.2.3 (splunk-enterprise-security_823.spl)
-   - ✓ Splunk_TA_ForIndexers (included within the ES .spl file)
+   - [X] Splunk Enterprise Security 8.2.3 (splunk-enterprise-security_823.spl)
+   - [X] Splunk_TA_ForIndexers (included within the ES .spl file)
 
 3. **Additional Add-ons** (already downloaded to `../splunkbase/`):
-   - ✓ Splunk Add-on for Cisco Cyber Vision 2.1.0 (cisco-cyber-vision-splunk-add-on_210.tgz)
+   - [X] Splunk Add-on for Cisco Cyber Vision 2.1.0 (cisco-cyber-vision-splunk-add-on_210.tgz)
 
 4. **Still needed from Splunkbase**:
    - Splunk Add-on for Microsoft DNS
