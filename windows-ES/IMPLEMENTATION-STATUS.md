@@ -74,6 +74,12 @@ Server 1 (Stratus ftServer)           Server 2 (Stratus ftServer)
    - Purpose: Collect Windows events, Sysmon, perfmon
    - Collects: Security, System, Application, PowerShell, Defender, Firewall, Sysmon, Perfmon
 
+9. **hap_add-on_cybervision_inputs** - Cisco Cyber Vision index routing
+   - Location: `windows-ES/deployment-apps/hap_add-on_cybervision_inputs/`
+   - Deploy to: Forwarders with Cyber Vision sensors (CyberVisionForwarders serverclass)
+   - Purpose: Override default index, route to cybervision index
+   - Requires: TA-cisco_cybervision installed first on forwarder
+
 ## Splunkbase Add-ons Required
 
 ### Critical (Get from Splunkbase)

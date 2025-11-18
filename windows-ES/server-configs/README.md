@@ -33,6 +33,12 @@ cd "C:\Program Files\Splunk\bin"
 - **Apps Deployed:**
   - `hap_add-on_windows_inputs` - Windows Event Logs + Perfmon
 
+### CyberVisionForwarders
+- **Matches:** Forwarders with Cyber Vision sensors (naming convention: CYBERVISION-*, ICS-*, OT-*)
+- **Apps Deployed:**
+  - `hap_add-on_cybervision_inputs` - Routes Cyber Vision data to cybervision index
+- **Note:** Requires TA-cisco_cybervision to be installed manually first
+
 ## Customization
 
 Edit `serverclass.conf` to:
